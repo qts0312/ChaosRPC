@@ -2,9 +2,9 @@
 
 ChaosRPC is a simple tool for reproducing transient errors on RPC (Remote Procedure Call).
 
-### Support
+## Support
 
-- [x] gRPC: Unary and stream calls, client and server side
+- [x] gRPC: Unary and stream calls, client and server sides
 - [ ] HTTP
 
-### Example
+## Example
