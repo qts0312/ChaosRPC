@@ -5,6 +5,7 @@ import (
 	"github.com/qts0312/ChaosRPC/pkg/call_site"
 	"github.com/qts0312/ChaosRPC/pkg/failure"
 	"github.com/qts0312/ChaosRPC/pkg/logger"
+	"github.com/qts0312/ChaosRPC/pkg/state"
 	"github.com/qts0312/ChaosRPC/pkg/util"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -18,10 +19,11 @@ func UnaryClientInterceptor(ctx context.Context, method string, req, reply inter
 	fullCallSite := strings.Join(callSite, ";")
 	fullCallSite = fullCallSite + ";" + method
 
-	targetCallSite, errorCode, waitTime := util.GetConfig()
+	targetCallSite, errorCode, waitTime, testId := util.GetConfig()
 	if fullCallSite != targetCallSite {
 		errorCode = failure.ErrorNone
 	}
+	errorCode = state.GlobalChaosState.Update(testId, errorCode)
 
 	switch errorCode {
 	case failure.ErrorNone:
@@ -39,6 +41,7 @@ func UnaryClientInterceptor(ctx context.Context, method string, req, reply inter
 	case failure.ErrorInboundTimeout:
 		_ = invoker(ctx, method, req, reply, cc, opts...)
 		reply = nil
+		logger.Infof("Inbound timeout on %s", fullCallSite)
 		time.Sleep(time.Duration(waitTime) * time.Second)
 		return status.Errorf(codes.DeadlineExceeded, "Timeout by ChaosRPC")
 	default:
@@ -52,10 +55,11 @@ func StreamClientInterceptor(ctx context.Context, desc *grpc.StreamDesc, cc *grp
 	fullCallSite := strings.Join(callSite, ";")
 	fullCallSite = fullCallSite + ";" + method
 
-	targetCallSite, errorCode, waitTime := util.GetConfig()
+	targetCallSite, errorCode, waitTime, testId := util.GetConfig()
 	if fullCallSite != targetCallSite {
 		errorCode = failure.ErrorNone
 	}
+	errorCode = state.GlobalChaosState.Update(testId, errorCode)
 
 	switch errorCode {
 	case failure.ErrorNone:
@@ -82,10 +86,11 @@ func StreamSendInterceptor(m any, f func(any) error) error {
 	fullCallSite := strings.Join(callSite, ";")
 	fullCallSite = fullCallSite + ";STREAM_SEND"
 
-	targetCallSite, errorCode, _ := util.GetConfig()
+	targetCallSite, errorCode, _, testId := util.GetConfig()
 	if fullCallSite != targetCallSite {
 		errorCode = failure.ErrorNone
 	}
+	errorCode = state.GlobalChaosState.Update(testId, errorCode)
 
 	switch errorCode {
 	case failure.ErrorNone:
@@ -111,10 +116,11 @@ func StreamRecvInterceptor(m any, f func(any) error) error {
 	fullCallSite := strings.Join(callSite, ";")
 	fullCallSite = fullCallSite + ";STREAM_RECV"
 
-	targetCallSite, errorCode, _ := util.GetConfig()
+	targetCallSite, errorCode, _, testId := util.GetConfig()
 	if fullCallSite != targetCallSite {
 		errorCode = failure.ErrorNone
 	}
+	errorCode = state.GlobalChaosState.Update(testId, errorCode)
 
 	switch errorCode {
 	case failure.ErrorNone:
