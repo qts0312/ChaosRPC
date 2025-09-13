@@ -21,7 +21,7 @@ func GetConfig() (string, int, int) {
 			errorCode = tmpErrorCode
 		}
 		tmpWaitTime, err := strconv.Atoi(os.Getenv("CHAOS_WAIT_TIME"))
-		if err != nil {
+		if err == nil {
 			waitTime = tmpWaitTime
 		}
 	} else {
