@@ -28,13 +28,15 @@ func main() {
 	}
 	c := pb.NewToyServiceClient(conn)
 
-	ctx := context.Background()
-	resp, err := c.Handshake(ctx, &pb.HandshakeRequest{
-		Name: "client",
-	})
-	if err != nil {
-		log.Fatalf("could not handshake: %v", err)
-		return
+	for i := 0; i < 3; i++ {
+		ctx := context.Background()
+		resp, err := c.Handshake(ctx, &pb.HandshakeRequest{
+			Name: "client",
+		})
+		if err != nil {
+			log.Printf("could not handshake: %v", err)
+		} else {
+			log.Printf("handshake success: %v", resp)
+		}
 	}
-	log.Printf("handshake success: %v", resp)
 }
