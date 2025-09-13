@@ -28,6 +28,7 @@ func UnaryClientInterceptor(ctx context.Context, method string, req, reply inter
 
 	switch errorCode {
 	case failure.ErrorNone:
+		logger.Debugf(fullCallSite)
 		return invoker(ctx, method, req, reply, cc, opts...)
 	case failure.ErrorOutboundUnavailable:
 		reply = nil

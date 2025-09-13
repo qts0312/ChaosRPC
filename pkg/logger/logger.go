@@ -13,3 +13,7 @@ func Errorf(format string, v ...any) {
 func Fatalf(format string, v ...any) {
 	log.Fatalf("[ChaosRPC] fatal: "+format, v...)
 }
+
+func Debugf(format string, v ...any) {
+	log.Printf("[ChaosRPC] debug: "+format, v...)
+}
