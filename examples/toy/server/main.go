@@ -14,6 +14,7 @@ type ToyServer struct {
 }
 
 func (s *ToyServer) Handshake(ctx context.Context, req *pb.HandshakeRequest) (*pb.HandshakeResponse, error) {
+	log.Printf("Received: %v", req.GetName())
 	return &pb.HandshakeResponse{Message: "Hello " + req.Name}, nil
 }
 

@@ -40,7 +40,10 @@ func UnaryClientInterceptor(ctx context.Context, method string, req, reply inter
 		logger.Infof("Inbound unavailable on %s", fullCallSite)
 		return status.Errorf(codes.Unavailable, "Inbound unavailable by ChaosRPC")
 	case failure.ErrorInboundTimeout:
-		waitTime, _ := strconv.Atoi(os.Getenv("CHAOS_WAIT_SEC"))
+		waitTime, err := strconv.Atoi(os.Getenv("CHAOS_WAIT_SEC"))
+		if err != nil {
+			waitTime = 5
+		}
 		_ = invoker(ctx, method, req, reply, cc, opts...)
 		reply = nil
 		time.Sleep(time.Duration(waitTime) * time.Second)
@@ -73,7 +76,10 @@ func StreamClientInterceptor(ctx context.Context, desc *grpc.StreamDesc, cc *grp
 		logger.Infof("Inbound unavailable on %s", fullCallSite)
 		return nil, status.Errorf(codes.Unavailable, "Inbound unavailable by ChaosRPC")
 	case failure.ErrorInboundTimeout:
-		waitTime, _ := strconv.Atoi(os.Getenv("CHAOS_WAIT_SEC"))
+		waitTime, err := strconv.Atoi(os.Getenv("CHAOS_WAIT_SEC"))
+		if err != nil {
+			waitTime = 5
+		}
 		_, _ = streamer(ctx, desc, cc, method, opts...)
 		time.Sleep(time.Duration(waitTime) * time.Second)
 		return nil, status.Errorf(codes.DeadlineExceeded, "Timeout by ChaosRPC")
