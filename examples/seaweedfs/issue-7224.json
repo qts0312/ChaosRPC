@@ -1,0 +1,6 @@
+{
+  "call_site": "s3;runtime.goexit:1223;net/http.(*conn).serve:2102;net/http.serverHandler.ServeHTTP:3301;github.com/gorilla/mux.(*Router).ServeHTTP:212;net/http.HandlerFunc.ServeHTTP:2294;github.com/seaweedfs/seaweedfs/weed/s3api/cors.(*Middleware).Handler-fm.(*Middleware).Handler.func1:43;net/http.HandlerFunc.ServeHTTP:2294;github.com/seaweedfs/seaweedfs/weed/s3api.(*S3ApiServer).registerRouter.track.func70:24;github.com/seaweedfs/seaweedfs/weed/s3api.(*S3ApiServer).registerRouter.(*IdentityAccessManagement).Auth.func69:415;github.com/seaweedfs/seaweedfs/weed/s3api.(*S3ApiServer).registerRouter.(*CircuitBreaker).Limit.func68:93;github.com/seaweedfs/seaweedfs/weed/s3api.(*S3ApiServer).DeleteMultipleObjectsHandler:252;github.com/seaweedfs/seaweedfs/weed/s3api.(*S3ApiServer).WithFilerClient:19;github.com/seaweedfs/seaweedfs/weed/pb.WithGrpcClient:164;github.com/seaweedfs/seaweedfs/weed/s3api.(*S3ApiServer).WithFilerClient.func1:21;github.com/seaweedfs/seaweedfs/weed/s3api.(*S3ApiServer).DeleteMultipleObjectsHandler.func1:360;github.com/seaweedfs/seaweedfs/weed/s3api.doDeleteEntry:67;github.com/seaweedfs/seaweedfs/weed/pb/filer_pb.(*seaweedFilerClient).DeleteEntry:151;/filer_pb.SeaweedFiler/DeleteEntry",
+  "error_code": 1,
+  "wait_time": 0,
+  "test_id": 4
+}

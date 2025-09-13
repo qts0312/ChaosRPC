@@ -1,0 +1,6 @@
+{
+  "call_site": "filer;runtime.goexit:1223;github.com/seaweedfs/seaweedfs/weed/server.(*FilerServer).uploadReaderToChunks.func1:125;github.com/seaweedfs/seaweedfs/weed/server.(*FilerServer).dataToChunkWithSSE:213;github.com/seaweedfs/seaweedfs/weed/util.Retry:16;github.com/seaweedfs/seaweedfs/weed/server.(*FilerServer).dataToChunkWithSSE.func1:215;github.com/seaweedfs/seaweedfs/weed/server.(*FilerServer).assignNewFileInfo:47;github.com/seaweedfs/seaweedfs/weed/operation.Assign:156;github.com/seaweedfs/seaweedfs/weed/operation.WithMasterServerClient:22;github.com/seaweedfs/seaweedfs/weed/pb.WithGrpcClient:164;github.com/seaweedfs/seaweedfs/weed/operation.WithMasterServerClient.func1:24;github.com/seaweedfs/seaweedfs/weed/operation.Assign.func1:168;github.com/seaweedfs/seaweedfs/weed/pb/master_pb.(*seaweedClient).Assign:123;/master_pb.Seaweed/Assign",
+  "error_code": 3,
+  "wait_time": 100,
+  "test_id":5
+}
