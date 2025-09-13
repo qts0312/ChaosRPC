@@ -5,7 +5,7 @@ go 1.24.1
 replace google.golang.org/grpc => github.com/qts0312/grpc v0.0.0-20250912120622-4656bf76be87
 
 require (
-	github.com/qts0312/ChaosRPC v0.0.0-20250913082618-eabe98b6defe
+	github.com/qts0312/ChaosRPC v0.0.0-20250913083419-60f13af62e6f
 	google.golang.org/grpc v1.75.1
 	google.golang.org/protobuf v1.36.9
 )

@@ -12,6 +12,8 @@ github.com/qts0312/ChaosRPC v0.0.0-20250913072512-9dbd6150aebb h1:nKN/q4cQ+rfD7Y
 github.com/qts0312/ChaosRPC v0.0.0-20250913072512-9dbd6150aebb/go.mod h1:lSBOUPLt4DuyjCFBVFqE9kAx7ql2n/0CjtY836Yu2IE=
 github.com/qts0312/ChaosRPC v0.0.0-20250913082618-eabe98b6defe h1:iXaOpffHls5I8rxPEJeiVJ6JMSl26aiiauCsXTKbiM0=
 github.com/qts0312/ChaosRPC v0.0.0-20250913082618-eabe98b6defe/go.mod h1:lSBOUPLt4DuyjCFBVFqE9kAx7ql2n/0CjtY836Yu2IE=
+github.com/qts0312/ChaosRPC v0.0.0-20250913083419-60f13af62e6f h1:bx3Io2Djo0kUgb2ZXPYhG2w+0O6PqCE0oijyqRTiouc=
+github.com/qts0312/ChaosRPC v0.0.0-20250913083419-60f13af62e6f/go.mod h1:lSBOUPLt4DuyjCFBVFqE9kAx7ql2n/0CjtY836Yu2IE=
 github.com/qts0312/grpc v0.0.0-20250912120622-4656bf76be87 h1:amEG2+8NQzIOx7YHf59rG5QWyYGUDLpA44YOfESn6Tw=
 github.com/qts0312/grpc v0.0.0-20250912120622-4656bf76be87/go.mod h1:Ju12QI8M6iQJtbcsV+awF5a4hfJMLi4X0JLo94ULZ6c=
 go.opentelemetry.io/auto/sdk v1.1.0 h1:cH53jehLUN6UFLY71z+NDOiNJqDdPRaXzTel0sJySYA=
