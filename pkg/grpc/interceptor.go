@@ -9,8 +9,6 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"os"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -20,9 +18,8 @@ func UnaryClientInterceptor(ctx context.Context, method string, req, reply inter
 	fullCallSite := strings.Join(callSite, ";")
 	fullCallSite = fullCallSite + ";" + method
 
-	targetCallSite := os.Getenv("CHAOS_CALL_SITE")
-	errorCode, err := strconv.Atoi(os.Getenv("CHAOS_ERROR_CODE"))
-	if err != nil || fullCallSite != targetCallSite {
+	targetCallSite, errorCode, waitTime := util.GetConfig()
+	if fullCallSite != targetCallSite {
 		errorCode = failure.ErrorNone
 	}
 
@@ -40,10 +37,6 @@ func UnaryClientInterceptor(ctx context.Context, method string, req, reply inter
 		logger.Infof("Inbound unavailable on %s", fullCallSite)
 		return status.Errorf(codes.Unavailable, "Inbound unavailable by ChaosRPC")
 	case failure.ErrorInboundTimeout:
-		waitTime, err := strconv.Atoi(os.Getenv("CHAOS_WAIT_SEC"))
-		if err != nil {
-			waitTime = 5
-		}
 		_ = invoker(ctx, method, req, reply, cc, opts...)
 		reply = nil
 		time.Sleep(time.Duration(waitTime) * time.Second)
@@ -59,9 +52,8 @@ func StreamClientInterceptor(ctx context.Context, desc *grpc.StreamDesc, cc *grp
 	fullCallSite := strings.Join(callSite, ";")
 	fullCallSite = fullCallSite + ";" + method
 
-	targetCallSite := os.Getenv("CHAOS_CALL_SITE")
-	errorCode, err := strconv.Atoi(os.Getenv("CHAOS_ERROR_CODE"))
-	if err != nil || fullCallSite != targetCallSite {
+	targetCallSite, errorCode, waitTime := util.GetConfig()
+	if fullCallSite != targetCallSite {
 		errorCode = failure.ErrorNone
 	}
 
@@ -76,10 +68,6 @@ func StreamClientInterceptor(ctx context.Context, desc *grpc.StreamDesc, cc *grp
 		logger.Infof("Inbound unavailable on %s", fullCallSite)
 		return nil, status.Errorf(codes.Unavailable, "Inbound unavailable by ChaosRPC")
 	case failure.ErrorInboundTimeout:
-		waitTime, err := strconv.Atoi(os.Getenv("CHAOS_WAIT_SEC"))
-		if err != nil {
-			waitTime = 5
-		}
 		_, _ = streamer(ctx, desc, cc, method, opts...)
 		time.Sleep(time.Duration(waitTime) * time.Second)
 		return nil, status.Errorf(codes.DeadlineExceeded, "Timeout by ChaosRPC")
@@ -94,9 +82,8 @@ func StreamSendInterceptor(m any, f func(any) error) error {
 	fullCallSite := strings.Join(callSite, ";")
 	fullCallSite = fullCallSite + ";STREAM_SEND"
 
-	targetCallSite := os.Getenv("CHAOS_CALL_SITE")
-	errorCode, err := strconv.Atoi(os.Getenv("CHAOS_ERROR_CODE"))
-	if err != nil || fullCallSite != targetCallSite {
+	targetCallSite, errorCode, _ := util.GetConfig()
+	if fullCallSite != targetCallSite {
 		errorCode = failure.ErrorNone
 	}
 
@@ -124,9 +111,8 @@ func StreamRecvInterceptor(m any, f func(any) error) error {
 	fullCallSite := strings.Join(callSite, ";")
 	fullCallSite = fullCallSite + ";STREAM_RECV"
 
-	targetCallSite := os.Getenv("CHAOS_CALL_SITE")
-	errorCode, err := strconv.Atoi(os.Getenv("CHAOS_ERROR_CODE"))
-	if err != nil || fullCallSite != targetCallSite {
+	targetCallSite, errorCode, _ := util.GetConfig()
+	if fullCallSite != targetCallSite {
 		errorCode = failure.ErrorNone
 	}
 
