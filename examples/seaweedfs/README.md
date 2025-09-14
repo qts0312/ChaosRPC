@@ -18,17 +18,23 @@ Testcases are all in `ceph/s3-tests/s3tests_boto3/functional/test_s3.py`.
 
 ## Steps
 
-1. Deploy SeaweedFS in Kubernetes cluster with helm chart.
+1. Make tailored SeaweedFS image with ChaosRPC. Our tailored version is in [this fork](https://github.com/qts0312/seaweedfs).
 
-2. Use `helper.py` to modify configurations in pods to injects faults on specified call sites.
+   ```bash
+   cd seaweedfs/docker
+   make build
+   ```
+
+2. Deploy SeaweedFS in Kubernetes cluster with helm chart.
+
+3. Use `helper.py` to modify configurations in pods to injects faults on specified call sites.
 
     ```bash
     python3 helper.py ./issue-<issue_index>.json
     ```
    
-3. Run corresponding testcase.
+4. Run corresponding testcase.
 
 ## Notes
 
-- Tailored SeaweedFS is needed. Our tailored version is in [this fork](https://github.com/qts0312/seaweedfs).
 - To avoid endless injection in single testcase, we use `test_id` to identify each testcase run, and only inject faults once for each `test_id`. So If you want to rerun the testcase, please remember to change `test_id` in json file.
