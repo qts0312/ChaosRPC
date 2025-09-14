@@ -37,4 +37,6 @@ Testcases are all in `ceph/s3-tests/s3tests_boto3/functional/test_s3.py`.
 
 ## Notes
 
+- We recommend using our tailored SeaweedFS, or the call sites may not match the version you are using.
+
 - To avoid endless injection in single testcase, we use `test_id` to identify each testcase run, and only inject faults once for each `test_id`. So If you want to rerun the testcase, please remember to change `test_id` in json file.
