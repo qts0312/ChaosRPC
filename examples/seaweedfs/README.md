@@ -15,6 +15,7 @@ Testcases are all in `ceph/s3-tests/s3tests_boto3/functional/test_s3.py`.
 | [7224](https://github.com/seaweedfs/seaweedfs/issues/7224) | Transient error on `DeleteEntry` causes object deletion fail              | `test_multi_object_delete`   |
 | [7228](https://github.com/seaweedfs/seaweedfs/issues/7228) | Timeout on `Assign` causes operation stuck for one minute                 | `test_bucket_list_many`      |
 | [7229](https://github.com/seaweedfs/seaweedfs/issues/7229) | Timeout on `CollectionList` causes operation stuck for one minute         | `test_bucket_list_empty`     |
+| [7232](https://github.com/seaweedfs/seaweedfs/issues/7232) | Timeout on `CollectionDelete` causes bucket cleanup stuck for one minute  | `test_bucket_list_empty`     |
 
 ## Steps
 
