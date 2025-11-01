@@ -26,7 +26,7 @@ Testcases are all in `ceph/s3-tests/s3tests_boto3/functional/test_s3.py`.
    make build
    ```
 
-2. Deploy SeaweedFS in Kubernetes cluster with helm chart.
+2. Deploy SeaweedFS in Kubernetes cluster with helm chart and forward `seaweedfs-s3` service on port `8333`.
 
 3. Use `helper.py` to modify configurations in pods to injects faults on specified call sites.
 
