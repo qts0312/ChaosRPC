@@ -2,7 +2,6 @@ package call_site
 
 import (
 	"runtime"
-	"strconv"
 	"strings"
 )
 
@@ -10,14 +9,12 @@ type CallSite []string
 
 func GetCallSite() CallSite {
 	funcNames := make([]string, 0)
-	linenos := make([]int, 0)
 	for i := 0; ; i++ {
-		pc, _, lineno, ok := runtime.Caller(i)
+		pc, _, _, ok := runtime.Caller(i)
 		if !ok {
 			break
 		}
 		funcNames = append(funcNames, runtime.FuncForPC(pc).Name())
-		linenos = append(linenos, lineno)
 	}
 
 	callSite := make([]string, 0)
@@ -26,7 +23,7 @@ func GetCallSite() CallSite {
 			// Skip common parts of gRPC call stack
 			break
 		}
-		callSite = append(callSite, funcNames[i]+":"+strconv.Itoa(linenos[i]))
+		callSite = append(callSite, funcNames[i])
 	}
 
 	return callSite
